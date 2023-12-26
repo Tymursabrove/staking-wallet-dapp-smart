@@ -1,7 +1,15 @@
+import React from "react";
+import NavbarScrool from "./Components/Navbar";
+
+import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
 function App() {
-  return <h1>DENEME</h1>;
+  return (
+    <React.Fragment>
+      <NavbarScrool />
+    </React.Fragment>
+  );
 }
 
 export default App;
