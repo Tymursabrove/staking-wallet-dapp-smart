@@ -1,13 +1,29 @@
 import React from "react";
+
+import Web3Provider from "./web3/Web3Provider.js";
+import { WagmiConfig } from "wagmi";
+import { createWeb3Modal } from "@web3modal/wagmi/react";
+
+import {
+  wagmiConfig,
+  WagmiWeb3ModalParameters,
+} from "./web3/wagmi-parameter.js";
+
 import NavbarScrool from "./Components/Navbar";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
+createWeb3Modal(WagmiWeb3ModalParameters);
+
 function App() {
   return (
     <React.Fragment>
-      <NavbarScrool />
+      <WagmiConfig config={wagmiConfig}>
+        <Web3Provider>
+          <NavbarScrool />
+        </Web3Provider>
+      </WagmiConfig>
     </React.Fragment>
   );
 }
