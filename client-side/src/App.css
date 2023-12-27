@@ -1,3 +1,15 @@
+.my-navbar {
+  background-color: red;
+}
+
+.bg-myNavbar {
+  background: linear-gradient(
+    180.2deg,
+    rgb(120, 85, 137) -6.9%,
+    rgb(35, 9, 31) 76.7%
+  );
+}
+
 .navbar-brand {
   display: flex;
   flex-direction: row;
@@ -5,6 +17,146 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+}
+
+.cntBtn {
+  padding: 0;
+  width: 12rem;
+  height: 2.2rem;
+  font-family: monospace;
+  font-weight: 100;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.after-click {
+  width: 14rem;
+  height: 2.3rem;
+  padding: 1%;
+}
+
+.cntBtn > img {
+  height: 25px;
+  width: 25px;
+}
+
+.btn-balance {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  font-family: monospace;
+  margin-right: -1rem;
+}
+
+.cntBtn:hover {
+  background-image: linear-gradient(
+    to right,
+    #093028 0%,
+    #122f23 51%,
+    #09211c 100%
+  );
+}
+
+.btn-menu {
+  width: 11rem;
+}
+
+.btn-item {
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.btn-item > a {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  height: 1rem;
+  margin-bottom: 1.5rem;
+  color: aliceblue;
+}
+
+.btn-item > a:hover {
+  background-image: linear-gradient(
+    to right,
+    #093028 0%,
+    #237a57 51%,
+    #093028 100%
+  );
+  opacity: 0.5;
+  color: aliceblue;
+  transform: scale(0.9);
+  background-color: transparent;
+}
+
+.web3-wallet-modal-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wallet-info-area {
+  display: flex;
+  flex-direction: row;
+}
+
+.wallet-info-area > p {
+  margin-left: 0.5rem;
+}
+
+.copy-icon-area {
+  transform: translateX(1px) translateY(-5px);
+  width: 12px;
+}
+
+.explorer-btn {
+  padding: 1%;
+  width: 10rem;
+  opacity: 0.5;
+  font-size: 0.8rem;
+}
+
+.modal-menu-area {
+  width: 100%;
+  display: flex;
+}
+
+.modal-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  list-style-type: none;
+  padding: 1%;
+}
+
+.modal-menu-item {
+  cursor: pointer;
+  display: flex;
+  margin-top: 1rem;
+  width: 100%;
+  height: 3rem;
+  left: 0;
+  align-items: center;
+
+  opacity: 0.8;
+  border: 1px solid aliceblue;
+  border-radius: 15px;
+  padding: 0 2%;
+}
+
+.modal-menu-item:hover {
+  opacity: 0.4;
+}
+
+.modal-menu-item:active,
+.explorer-btn:active {
+  transform: scale(0.95);
+}
+
+.modal-menu-note {
+  font-size: 0.7rem;
+  text-align: justify;
 }
 
 @media only screen and (max-width: 600px) {

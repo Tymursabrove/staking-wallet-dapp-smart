@@ -1,0 +1,23 @@
+.my-copy-icon:hover {
+  opacity: 0.5;
+}
+
+.copied-area {
+  position: fixed;
+  display: inline-block;
+  transform: translateX(5px) translateY(-22px);
+  border: 1px solid aliceblue;
+  background-color: aliceblue;
+  color: #202020;
+  border-radius: 5px;
+  width: 4rem;
+}
+
+.copied-area-show {
+  opacity: 0.4;
+  transition: all 0.5s linear;
+}
+
+.copied-area-hide {
+  opacity: 0;
+}
