@@ -10,9 +10,9 @@ function MainArea() {
   return (
     <React.Fragment>
       {web3Ctx.isConnected ? (
-        <React.Fragment>
+        <div className="main-area">
           <WalletInfo />
-        </React.Fragment>
+        </div>
       ) : (
         <MustConnect />
       )}
