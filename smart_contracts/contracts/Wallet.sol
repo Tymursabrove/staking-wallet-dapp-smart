@@ -30,7 +30,7 @@ contract Wallet {
     fallback() external payable {}
 
     modifier onlyOwner(){
-        require(tx.origin == owner, "Only owner can withdray");
+        require(tx.origin == owner, "Only owner can withdraw");
         _;
     }
 
