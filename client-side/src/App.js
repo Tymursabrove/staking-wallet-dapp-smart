@@ -10,6 +10,7 @@ import {
 } from "./web3/wagmi-parameter.js";
 
 import NavbarScrool from "./Components/Navbar";
+import MainArea from "./Components/MainArea.jsx";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
@@ -22,6 +23,7 @@ function App() {
       <WagmiConfig config={wagmiConfig}>
         <Web3Provider>
           <NavbarScrool />
+          <MainArea />
         </Web3Provider>
       </WagmiConfig>
     </React.Fragment>
