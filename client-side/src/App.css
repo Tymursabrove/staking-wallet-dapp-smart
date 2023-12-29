@@ -202,14 +202,30 @@
 }
 
 /* .wallet-info-content {
-}
+} */
 
 .wallet-info-list {
+  list-style-type: none;
 }
 
 .wallet-info-list__item {
-} */
+  display: flex;
+  flex-direction: row;
+}
 
+.wallet-title {
+  margin-left: 20px;
+  margin-bottom: 2rem;
+}
+
+.wallet-table-area {
+  width: 90%;
+  margin: auto;
+}
+
+.create-wallet-btn {
+  width: 100%;
+}
 @media only screen and (max-width: 600px) {
   .navbar-brand > h1 {
     display: none;
