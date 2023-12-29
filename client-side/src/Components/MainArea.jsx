@@ -5,6 +5,8 @@ import MustConnect from "./MustConnect";
 import WalletInfo from "./WalletInfo";
 import Wallets from "./Wallets";
 
+import Footer from "./Footer";
+
 function MainArea() {
   const web3Ctx = useContext(Web3Context);
 

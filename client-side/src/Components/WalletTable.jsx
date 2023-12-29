@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 function WalletTable(props) {
   return (
     <React.Fragment>
-      <Table responsive="sm" variant="dark">
+      <Table bordered hover bsPrefix="my-table">
         <thead>
           <tr>
             <th>#</th>

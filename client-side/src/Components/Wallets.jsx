@@ -24,9 +24,13 @@ function Wallets() {
 
   return (
     <React.Fragment>
-      <h1 className="wallet-title">My Wallets</h1>
+      <h1 className="wallet-title" style={{ padding: "5px" }}>
+        My Wallets
+      </h1>
       <div className="wallet-table-area">
         {wallets.length > 0 ? <WalletTable wallets={wallets} /> : <></>}
+      </div>
+      <div className="create-wallet-btn-area">
         <Button className="create-wallet-btn" onClick={createWalletHandle}>
           Create Wallet
         </Button>

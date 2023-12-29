@@ -11,6 +11,7 @@ import {
 
 import NavbarScrool from "./Components/Navbar";
 import MainArea from "./Components/MainArea.jsx";
+import Footer from "./Components/Footer.jsx";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
@@ -24,6 +25,7 @@ function App() {
         <Web3Provider>
           <NavbarScrool />
           <MainArea />
+          <Footer />
         </Web3Provider>
       </WagmiConfig>
     </React.Fragment>
