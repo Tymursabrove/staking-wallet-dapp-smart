@@ -8,6 +8,7 @@ function Wallets() {
     walletId: 1232222222222222222222222222,
     deposit: 123,
     currentBalance: 123,
+    tokenBalance: 1111,
     withdraw: 123,
     IsStaked: 12,
     stake: 124,

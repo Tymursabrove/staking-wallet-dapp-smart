@@ -11,6 +11,7 @@ function WalletTable(props) {
             <th>Wallet ID</th>
             <th>Deposit</th>
             <th>Current Balance</th>
+            <th>AET Balance</th>
             <th>Withdraw</th>
             <th>Is Staked</th>
             <th>Stake</th>
@@ -26,6 +27,7 @@ function WalletTable(props) {
                 <td>{item.walletId}</td>
                 <td>{item.deposit}</td>
                 <td>{item.currentBalance}</td>
+                <td>{item.tokenBalance}</td>
                 <td>{item.withdraw}</td>
                 <td>{item.IsStaked}</td>
                 <td>{item.stake}</td>
