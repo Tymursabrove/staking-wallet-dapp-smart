@@ -14,6 +14,7 @@ contract StakingAET is ERC20{
     event DepositWallet(uint256 indexed _walletId, uint256 amount);
     event WithdrawWallet(uint256 indexed _walletId, address _to, uint256 amount);
     event StakingEthEvent(uint256 indexed _walletId, uint256 totalAmount);
+    event UnStakingEthEvent(uint256 indexed _walletId);
 
 
     struct StakingWallet{
@@ -21,11 +22,13 @@ contract StakingAET is ERC20{
         uint256 stakedValue;
         uint256 sinceBlock;
         uint256 untilBlock;
-        uint256 totalReward;
-        
+        uint256 totalReward; 
     }
     
     uint256 public constant rewardAmountPerBlock = 10;
+    mapping(uint256 => bool) public isStaked;
+    mapping(address => uint256) public walletIDMapping;
+    mapping(address => uint256[]) public wallets_mapping;
 
     StakingWallet[] public stakingWallets;
     
@@ -36,6 +39,8 @@ contract StakingAET is ERC20{
         stakingWallets.push(StakingWallet(wallet,0,0,0,0));
         uint256 walletId = stakingWallets.length - 1;
         emit CreateWallet(walletId, address(wallet));
+        walletIDMapping[address(wallet)] = walletId;
+        wallets_mapping[msg.sender].push(walletId);
         return (walletId,address(wallet));
     }
 
@@ -71,6 +76,18 @@ contract StakingAET is ERC20{
       StakingWallet memory wallet = stakingWallets[_walletId];
       return wallet.stakedValue;
     }
+    
+    function getIsStaked(uint256 _walletId) public view returns(bool){
+        return isStaked[_walletId];
+    }
+
+    function getWalletId(address walletAdr) public view returns(uint256){
+        return walletIDMapping[walletAdr];
+    }
+
+    function getWallets() public view returns(uint256[] memory){
+        return wallets_mapping[msg.sender];
+    }
 
     function StakingEth(uint256 _walletId, uint256 stakedAmount) public {
         StakingWallet storage wallet = stakingWallets[_walletId];
@@ -84,12 +101,26 @@ contract StakingAET is ERC20{
         wallet.sinceBlock = block.timestamp;
         wallet.untilBlock = 0;
         wallet.stakedValue += stakedAmount;
+        isStaked[_walletId] = true;
         emit StakingEthEvent( _walletId, wallet.stakedValue);
     }
 
 
+    function UnStake(uint256 _walletId) public onlyOwner(_walletId) {
+        StakingWallet storage wallet = stakingWallets[_walletId];
+        require(wallet.sinceBlock == 0 , "Already unstaked");
 
+        uint256 totalUnclaimedRewards = calculateCurrentReward(_walletId);
+        _mint(msg.sender,totalUnclaimedRewards);
 
+        wallet.totalReward = 0;
+        wallet.sinceBlock = 0;
+        wallet.untilBlock = block.timestamp;
+        wallet.stakedValue = 0;
+        isStaked[_walletId] = false;
+        emit UnStakingEthEvent(_walletId);
+
+    }
 
 
     receive() external payable {}
