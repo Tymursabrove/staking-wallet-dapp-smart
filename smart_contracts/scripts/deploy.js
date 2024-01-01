@@ -28,6 +28,11 @@ async function main() {
   await wallet.waitForDeployment();
 
   console.log(` Wallet  deployed to ${wallet.target}`);
+
+  const StakingAET = await hre.ethers.deployContract("StakingAET");
+  await StakingAET.waitForDeployment();
+
+  console.log(` StakingAET  deployed to ${StakingAET.target}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

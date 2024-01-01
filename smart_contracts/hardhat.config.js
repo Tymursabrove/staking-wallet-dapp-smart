@@ -5,6 +5,13 @@ const { INFURA_API_KEY, MNEMONIC } = process.env;
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   networks: {
+    hardhat: {
+      chainId: 1337,
+      mining: {
+        auto: true,
+        interval: 5000,
+      },
+    },
     ganache: {
       url: "http://127.0.0.1:7545",
       network_id: "5777", // Your network id
