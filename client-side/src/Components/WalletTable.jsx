@@ -22,7 +22,7 @@ function WalletTable(props) {
         <tbody>
           {props.wallets.map((item) => {
             return (
-              <tr>
+              <tr key={item.walletId}>
                 <td>{item.number}</td>
                 <td>{item.walletId}</td>
                 <td>{item.deposit}</td>

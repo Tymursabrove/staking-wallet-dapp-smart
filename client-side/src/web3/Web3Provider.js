@@ -2,16 +2,87 @@ import React, { useState, useEffect, useCallback } from "react";
 import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
+import { ContractInfo } from "../contract/ContractInfo.js";
+import { useContractWrite } from "wagmi";
 import Web3 from "web3";
 
 const Web3Provider = (props) => {
   const [balance, setBalance] = useState(undefined);
+
   const { open } = useWeb3Modal();
   const { disconnect } = useDisconnect();
   const { address, isDisconnected } = useAccount();
 
+  // create Wallet
+  const createWallet = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "createWallet",
+  });
+
   const walletConnect = () => {
     open({ view: "Networks" });
+  };
+
+  const createContractInstace = () => {
+    const web3 = new Web3(window.ethereum);
+    const contractInstance = new web3.eth.Contract(
+      ContractInfo.ABI,
+      ContractInfo.ADDRESS
+    );
+    return contractInstance;
+  };
+
+  const getWallets = async () => {
+    const contractInstance = createContractInstace();
+    const wallets = await contractInstance.methods.getWallets().call({
+      from: address,
+    });
+
+    return wallets;
+  };
+
+  const getWalletBalance = async (walletId) => {
+    const contractInstance = createContractInstace();
+
+    const walletBalance = await contractInstance.methods
+      .walletBalance(walletId)
+      .call({
+        from: address,
+      });
+    return walletBalance;
+  };
+
+  const getAETBalance = async (walletAdr) => {
+    const contractInstance = createContractInstace();
+    const AETBalance = await contractInstance.methods
+      .balanceOf(walletAdr)
+      .call({ from: address });
+    return AETBalance;
+  };
+
+  const getIsStake = async (walletId) => {
+    const contractInstance = createContractInstace();
+    const isStake = await contractInstance.methods
+      .getIsStaked(walletId)
+      .call({ from: address });
+    return isStake;
+  };
+
+  const getCurrentStake = async (walletId) => {
+    const contractInstance = createContractInstace();
+    const currentStake = await contractInstance.methods
+      .currentStake(walletId)
+      .call({ from: address });
+    return currentStake;
+  };
+
+  const getCurrentRewards = async (walletId) => {
+    const contractInstance = createContractInstace();
+    const curretRewards = contractInstance.methods
+      .calculateCurrentReward(walletId)
+      .call({ from: address });
+    return curretRewards;
   };
 
   const disconnectWallet = async () => {
@@ -43,6 +114,14 @@ const Web3Provider = (props) => {
     isConnected: !isDisconnected,
     address,
     balance,
+    createWallet,
+
+    getCurrentRewards,
+    getCurrentStake,
+    getIsStake,
+    getAETBalance,
+    getWalletBalance,
+    getWallets,
     walletConnect,
     disconnectWallet,
   };
