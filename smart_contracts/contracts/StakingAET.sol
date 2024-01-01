@@ -108,7 +108,7 @@ contract StakingAET is ERC20{
 
     function UnStake(uint256 _walletId) public onlyOwner(_walletId) {
         StakingWallet storage wallet = stakingWallets[_walletId];
-        require(wallet.sinceBlock == 0 , "Already unstaked");
+        require(wallet.untilBlock == 0 , "Already unstaked");
 
         uint256 totalUnclaimedRewards = calculateCurrentReward(_walletId);
         _mint(msg.sender,totalUnclaimedRewards);
