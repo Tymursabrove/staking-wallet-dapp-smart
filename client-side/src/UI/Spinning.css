@@ -18,7 +18,8 @@
   margin: 8px;
   box-sizing: border-box;
   border: 32px solid #202020;
-  border-color: #202020 transparent #202020 transparent;
+  border-color: #ab0550 transparent #ab0550 transparent;
+
   animation: lds-hourglass 1.2s infinite;
 }
 

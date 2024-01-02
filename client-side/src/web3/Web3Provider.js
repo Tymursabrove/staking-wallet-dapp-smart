@@ -8,6 +8,8 @@ import Web3 from "web3";
 
 const Web3Provider = (props) => {
   const [balance, setBalance] = useState(undefined);
+  const [Wallets, setWallets] = useState([]);
+  const [walletsIsLoading, setWalletsIsLoading] = useState(false);
 
   const { open } = useWeb3Modal();
   const { disconnect } = useDisconnect();
@@ -89,6 +91,36 @@ const Web3Provider = (props) => {
     disconnect();
   };
 
+  const getAllWallets = async () => {
+    setWalletsIsLoading(true);
+    const walletIDs = await getWallets();
+    const walletsArr = [];
+    for (let i = 0; i < walletIDs.length; i++) {
+      const walletId = Number(walletIDs[i]);
+      const walletBalance = await getWalletBalance(walletId);
+      // get AET balance
+      const isStaked = await getIsStake(walletId);
+      const currentStake = await getCurrentStake(walletId);
+      const currentReward = await getCurrentRewards(walletId);
+      const wallet = {
+        number: walletId,
+        walletId: walletId,
+        deposit: 123,
+        currentBalance: Number(walletBalance),
+        tokenBalance: 1111,
+        withdraw: 123,
+        IsStaked: isStaked ? `true` : "false",
+        stake: 124,
+        currentStake: Number(currentStake),
+        rewards: Number(currentReward),
+      };
+      walletsArr.push(wallet);
+    }
+
+    setWallets(walletsArr);
+    setWalletsIsLoading(false);
+  };
+
   const getBalance = useCallback(
     async (web3) => {
       const balanceWei = await web3?.eth.getBalance(address);
@@ -116,6 +148,10 @@ const Web3Provider = (props) => {
     balance,
     createWallet,
 
+    getWallets,
+    walletsIsLoading,
+    Wallets,
+    getAllWallets,
     getCurrentRewards,
     getCurrentStake,
     getIsStake,

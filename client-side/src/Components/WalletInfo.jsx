@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
+import { ContractInfo } from "../contract/ContractInfo";
+import CopyIcon from "../UI/CopyIcon";
 
 function WalletInfo() {
+  const [isCopied, setIsCopied] = useState(false);
+  const clickCopyBoard = () => {
+    navigator.clipboard.writeText(ContractInfo.ADDRESS);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
   return (
     <React.Fragment>
       <div className="wallet-title" style={{ marginTop: "1rem" }}>
@@ -12,7 +23,14 @@ function WalletInfo() {
           <tbody>
             <tr>
               <td className="bold">Staking Pool Address :</td>
-              <td>12sdsdsdsdsdsdsdsdsdsdsd3</td>
+              <td>
+                {ContractInfo.ADDRESS}{" "}
+                <CopyIcon
+                  onClick={clickCopyBoard}
+                  isCopied={isCopied}
+                  className="copy-icon-area"
+                />
+              </td>
             </tr>
           </tbody>
           <tbody>

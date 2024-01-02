@@ -6,7 +6,10 @@ const Web3Context = React.createContext({
   balance: undefined,
 
   getWallets: undefined,
+  Wallets: undefined,
+  walletsIsLoading: false,
 
+  getAllWallets: () => {},
   getCurrentRewards: () => {},
   getCurrentStake: () => {},
   getIsStake: () => {},
