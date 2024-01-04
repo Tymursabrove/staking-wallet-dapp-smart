@@ -28,6 +28,12 @@ const Web3Provider = (props) => {
     functionName: "walletDeposit",
   });
 
+  const walletWithdraw = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "walletWithdraw",
+  });
+
   const walletConnect = () => {
     open({ view: "Networks" });
   };
@@ -155,6 +161,7 @@ const Web3Provider = (props) => {
     balance,
     createWallet,
     walletDeposit,
+    walletWithdraw,
 
     getWallets,
     walletsIsLoading,
