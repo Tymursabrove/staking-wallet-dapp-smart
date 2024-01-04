@@ -317,6 +317,18 @@
   font-weight: bolder;
 }
 
+.error-msg-modal {
+  color: #ff0033;
+}
+
+.success-msg-modal {
+  color: #198754;
+}
+
+.waiting-msg-modal {
+  color: #eed202;
+}
+
 table,
 th,
 td {

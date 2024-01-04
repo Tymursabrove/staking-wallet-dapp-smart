@@ -22,6 +22,12 @@ const Web3Provider = (props) => {
     functionName: "createWallet",
   });
 
+  const walletDeposit = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "walletDeposit",
+  });
+
   const walletConnect = () => {
     open({ view: "Networks" });
   };
@@ -93,20 +99,21 @@ const Web3Provider = (props) => {
 
   const getAllWallets = async () => {
     setWalletsIsLoading(true);
+    const web3 = new Web3(window.ethereum);
     const walletIDs = await getWallets();
     const walletsArr = [];
     for (let i = 0; i < walletIDs.length; i++) {
       const walletId = Number(walletIDs[i]);
       const walletBalance = await getWalletBalance(walletId);
+      const walletBalanceEth = await web3.utils.fromWei(walletBalance, "ether");
+
       // get AET balance
       const isStaked = await getIsStake(walletId);
       const currentStake = await getCurrentStake(walletId);
       const currentReward = await getCurrentRewards(walletId);
       const wallet = {
-        number: walletId,
         walletId: walletId,
-        deposit: 123,
-        currentBalance: Number(walletBalance),
+        currentBalance: Number(walletBalanceEth),
         tokenBalance: 1111,
         withdraw: 123,
         IsStaked: isStaked ? `true` : "false",
@@ -147,6 +154,7 @@ const Web3Provider = (props) => {
     address,
     balance,
     createWallet,
+    walletDeposit,
 
     getWallets,
     walletsIsLoading,
