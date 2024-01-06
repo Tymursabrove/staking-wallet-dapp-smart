@@ -313,6 +313,18 @@
   color: aliceblue;
 }
 
+.center {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.reward-area {
+  display: flex;
+  flex-direction: column;
+}
+
 .bold {
   font-weight: bolder;
 }
@@ -323,6 +335,16 @@
 
 .success-msg-modal {
   color: #198754;
+}
+
+.staked-true {
+  color: #04a85c;
+  font-weight: 1000;
+}
+
+.staked-false {
+  color: #ff0033;
+  font-weight: 1000;
 }
 
 .waiting-msg-modal {

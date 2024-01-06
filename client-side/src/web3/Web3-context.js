@@ -10,6 +10,12 @@ const Web3Context = React.createContext({
   walletsIsLoading: false,
   walletDeposit: undefined,
   walletWithdraw: undefined,
+  StakingEth: undefined,
+  UnstakingEth: undefined,
+
+  AETBalance: 0,
+  totalStakedAdr: 0,
+  totalStakedValue: 0,
 
   getAllWallets: () => {},
   getCurrentRewards: () => {},
@@ -17,6 +23,8 @@ const Web3Context = React.createContext({
   getIsStake: () => {},
   getAETBalance: () => {},
   getWalletBalance: () => {},
+  getWalletAdr: () => {},
+  getTokenBalance: () => {},
   walletConnect: () => {},
   disconnectWallet: () => {},
 });

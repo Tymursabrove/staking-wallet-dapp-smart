@@ -9,7 +9,11 @@ import Web3 from "web3";
 const Web3Provider = (props) => {
   const [balance, setBalance] = useState(undefined);
   const [Wallets, setWallets] = useState([]);
+
   const [walletsIsLoading, setWalletsIsLoading] = useState(false);
+  const [AETBalance, setAETBalance] = useState(0);
+  const [totalStakedAdr, setTotalStakedAdr] = useState(0);
+  const [totalStakedValue, setTotalStakedValue] = useState(0);
 
   const { open } = useWeb3Modal();
   const { disconnect } = useDisconnect();
@@ -32,6 +36,18 @@ const Web3Provider = (props) => {
     address: ContractInfo.ADDRESS,
     abi: ContractInfo.ABI,
     functionName: "walletWithdraw",
+  });
+
+  const StakingEth = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "StakingEth",
+  });
+
+  const UnstakingEth = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "UnStake",
   });
 
   const walletConnect = () => {
@@ -93,10 +109,26 @@ const Web3Provider = (props) => {
 
   const getCurrentRewards = async (walletId) => {
     const contractInstance = createContractInstace();
-    const curretRewards = contractInstance.methods
+    const curretRewards = await contractInstance.methods
       .calculateCurrentReward(walletId)
       .call({ from: address });
     return curretRewards;
+  };
+
+  const getTokenBalance = async (walletAdr) => {
+    const contractInstance = createContractInstace();
+    const tokenBalance = await contractInstance.methods
+      .balanceOf(walletAdr)
+      .call({ from: address });
+    return tokenBalance;
+  };
+
+  const getWalletAdr = async (walletId) => {
+    const contractInstance = createContractInstace();
+    const walletAdr = contractInstance.methods
+      .getWalletAdr(walletId)
+      .call({ from: address });
+    return walletAdr;
   };
 
   const disconnectWallet = async () => {
@@ -108,28 +140,48 @@ const Web3Provider = (props) => {
     const web3 = new Web3(window.ethereum);
     const walletIDs = await getWallets();
     const walletsArr = [];
+
+    const tokenBalance = await getAETBalance(address);
+    const tokenBalanceEth = await web3.utils.fromWei(tokenBalance, "ether");
+
+    setAETBalance(Number(tokenBalanceEth));
+
+    let stakedAdr = 0;
+    let stakedVal = 0;
+
     for (let i = 0; i < walletIDs.length; i++) {
       const walletId = Number(walletIDs[i]);
       const walletBalance = await getWalletBalance(walletId);
+      const walletAdr = await getWalletAdr(walletId);
       const walletBalanceEth = await web3.utils.fromWei(walletBalance, "ether");
 
       // get AET balance
       const isStaked = await getIsStake(walletId);
       const currentStake = await getCurrentStake(walletId);
+      const currentStakeEth = await web3.utils.fromWei(currentStake, "ether");
       const currentReward = await getCurrentRewards(walletId);
+      const currentRewardEth = await web3.utils.fromWei(currentReward, "ether");
+
+      if (isStaked) {
+        stakedAdr++;
+      }
+      stakedVal += Number(currentStakeEth);
+
       const wallet = {
         walletId: walletId,
+        walletAdr: walletAdr,
         currentBalance: Number(walletBalanceEth),
-        tokenBalance: 1111,
         withdraw: 123,
-        IsStaked: isStaked ? `true` : "false",
+        IsStaked: isStaked,
         stake: 124,
-        currentStake: Number(currentStake),
-        rewards: Number(currentReward),
+        currentStake: Number(currentStakeEth),
+        rewards: Number(currentRewardEth),
       };
       walletsArr.push(wallet);
     }
 
+    setTotalStakedAdr(stakedAdr);
+    setTotalStakedValue(stakedVal);
     setWallets(walletsArr);
     setWalletsIsLoading(false);
   };
@@ -162,10 +214,16 @@ const Web3Provider = (props) => {
     createWallet,
     walletDeposit,
     walletWithdraw,
+    StakingEth,
+    UnstakingEth,
 
     getWallets,
     walletsIsLoading,
     Wallets,
+
+    AETBalance,
+    totalStakedAdr,
+    totalStakedValue,
     getAllWallets,
     getCurrentRewards,
     getCurrentStake,
@@ -173,6 +231,8 @@ const Web3Provider = (props) => {
     getAETBalance,
     getWalletBalance,
     getWallets,
+    getWalletAdr,
+    getTokenBalance,
     walletConnect,
     disconnectWallet,
   };

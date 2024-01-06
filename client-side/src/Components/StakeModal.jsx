@@ -6,12 +6,12 @@ import Form from "react-bootstrap/Form";
 import Web3 from "web3";
 import Spinning from "../UI/Spinning.jsx";
 
-function DepositModal({ onClose, msg, walletId }) {
+function StakeModal({ onClose, msg, walletId }) {
   const web3Ctx = useContext(Web3Context);
   const ref = useRef(undefined);
   const [showMsg, setShowMsg] = useState(false);
 
-  function deposit(e) {
+  function stake(e) {
     e.preventDefault();
     setShowMsg(true);
     const value = ref.current[0].value;
@@ -20,10 +20,9 @@ function DepositModal({ onClose, msg, walletId }) {
     }
     const web3 = new Web3(window.ethereum);
     const valueInWei = web3.utils.toWei(value, "ether");
-    web3Ctx.walletDeposit.write({
-      args: [walletId],
+    web3Ctx.StakingEth.write({
+      args: [walletId, valueInWei],
       from: web3Ctx.address,
-      value: valueInWei,
     });
   }
 
@@ -64,22 +63,22 @@ function DepositModal({ onClose, msg, walletId }) {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="number"
-              placeholder="Deposit Value in ETH"
+              placeholder="Stake Value in ETH"
               min="0.00001"
               required={true}
               step={0.00001}
             />
           </Form.Group>
           <div className="center">
-            <Button onClick={deposit} type="submit">
-              Deposit
+            <Button onClick={stake} type="submit">
+              Stake
             </Button>
           </div>
-          {showMsg && <MessageArea status={web3Ctx.walletDeposit.status} />}
+          {showMsg && <MessageArea status={web3Ctx.StakingEth.status} />}
         </Form>
       </Modal>
     </React.Fragment>
   );
 }
 
-export default DepositModal;
+export default StakeModal;

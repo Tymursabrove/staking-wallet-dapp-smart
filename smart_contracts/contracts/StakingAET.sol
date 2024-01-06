@@ -90,6 +90,12 @@ contract StakingAET is ERC20{
         return wallets_mapping[msg.sender];
     }
 
+    
+    function getWalletAdr(uint256 _walletId) public view returns(address){
+        StakingWallet memory wallet = stakingWallets[_walletId];
+        return address(wallet.wallet);
+    }
+
     function StakingEth(uint256 _walletId, uint256 stakedAmount) public {
         StakingWallet storage wallet = stakingWallets[_walletId];
         uint256 currentBalance = wallet.wallet.balanceOf();
@@ -113,6 +119,8 @@ contract StakingAET is ERC20{
 
         uint256 totalUnclaimedRewards = calculateCurrentReward(_walletId);
         _mint(msg.sender,totalUnclaimedRewards);
+                payable(address(wallet.wallet)).transfer(wallet.stakedValue);
+
 
         wallet.totalReward = 0;
         wallet.sinceBlock = 0;

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Web3Context from "../web3/Web3-context.js";
 import Table from "react-bootstrap/Table";
 import { ContractInfo } from "../contract/ContractInfo";
 import CopyIcon from "../UI/CopyIcon";
 
 function WalletInfo() {
   const [isCopied, setIsCopied] = useState(false);
+  const web3Ctx = useContext(Web3Context);
+
   const clickCopyBoard = () => {
     navigator.clipboard.writeText(ContractInfo.ADDRESS);
     setIsCopied(true);
@@ -36,35 +39,23 @@ function WalletInfo() {
           <tbody>
             <tr>
               <td className="bold">Total Address Staked :</td>
-              <td>123</td>
+              <td>{web3Ctx.totalStakedAdr}</td>
             </tr>
           </tbody>
           <tbody>
             <tr>
               <td className="bold">Total Staked :</td>
-              <td>123</td>
+              <td>{web3Ctx.totalStakedValue}</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td className="bold">Your AET Balance :</td>
+              <td>{web3Ctx.AETBalance} AET</td>
             </tr>
           </tbody>
         </Table>
       </div>
-      {/* <div className="Wallet-Info-Row">
-        <div className="wallet-info-title">
-          <h1>Wallet Info</h1>
-        </div>
-        <div className="wallet-info-content">
-          <ul className="wallet-info-list">
-            <li className="wallet-info-list__item">
-              <h5>Staking Pool Address : </h5>
-            </li>
-            <li className="wallet-info-list__item">
-              <h5>Total Address Staked : </h5>
-            </li>
-            <li className="wallet-info-list__item">
-              <h5>Total Staked : </h5>
-            </li>
-          </ul>
-        </div>
-      </div> */}
     </React.Fragment>
   );
 }

@@ -11,16 +11,21 @@ function WithdrawModal({ onClose, msg, walletId }) {
   const ref = useRef(undefined);
   const [showMsg, setShowMsg] = useState(false);
 
-  function deposit(e) {
+  function withdraw(e) {
     e.preventDefault();
     setShowMsg(true);
     const value = ref.current[0].value;
+    const address = ref.current[1].value;
+    console.log(address);
     if (value == 0) {
       return;
     }
     const web3 = new Web3(window.ethereum);
     const valueInWei = web3.utils.toWei(value, "ether");
-    // add write
+    web3Ctx.walletWithdraw.write({
+      args: [walletId, address, valueInWei],
+      from: web3Ctx.address,
+    });
   }
 
   const MessageArea = (statusObj) => {
@@ -60,10 +65,13 @@ function WithdrawModal({ onClose, msg, walletId }) {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="number"
-              placeholder="Deposit Value in ETH"
+              placeholder="Withdraw Value in ETH"
               min="0"
               step={0.00001}
             />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Control type="text" placeholder="Withdraw Address" />
           </Form.Group>
           <div
             style={{
@@ -72,11 +80,11 @@ function WithdrawModal({ onClose, msg, walletId }) {
               justifyContent: "center",
             }}
           >
-            <Button onClick={deposit} type="submit">
+            <Button onClick={withdraw} type="submit">
               Withdraw
             </Button>
           </div>
-          {showMsg && <MessageArea status={web3Ctx.walletDeposit.status} />}
+          {showMsg && <MessageArea status={web3Ctx.walletWithdraw.status} />}
         </Form>
       </Modal>
     </React.Fragment>
