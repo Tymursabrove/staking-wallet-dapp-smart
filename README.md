@@ -35,6 +35,8 @@ Please [click](https://github.com/ihsan215/smart-staking-wallet-dapp/tree/main/c
 
 # Blockchain - Side Of Project
 
+Token Adr : 0xdeaeC141fDA47eA147910C6dF036BaC530c2F247
+
 The blockchain side of the application was made using Solidity programming language on Sepolia network.
 
 The programming languages and tools used are as shown below :
