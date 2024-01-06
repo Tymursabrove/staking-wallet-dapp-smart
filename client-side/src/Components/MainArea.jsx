@@ -12,7 +12,7 @@ function MainArea() {
 
   return (
     <React.Fragment>
-      {web3Ctx.isConnected ? (
+      {web3Ctx.isConnected && web3Ctx.address ? (
         <div className="main-area">
           <WalletInfo />
           <Wallets />
