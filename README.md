@@ -1,7 +1,5 @@
 # Smart Staking Wallet - DApp
 
-[Live Demo](https://smart-staking-wallet.web.app/)
-
 # Description:
 
 This repository contains the codebase for a staking wallet that empowers users to engage in staking activities with Ethereum (ETH) to earn, an ERC20 token. The wallet interface enables seamless deposit and withdrawal functionalities from a staking pool, providing users the flexibility to manage their staked assets effortlessly.
@@ -31,11 +29,10 @@ The programming languages and tools used are as shown below :
 - wagmi hooks
 - npm
 
-Please [click](https://github.com/ihsan215/smart-staking-wallet-dapp/tree/main/client-side) to review.
+Please [click](https://github.com/Tymursabrove/staking-wallet-dapp-smart/tree/main/client-side) to review.
 
 # Blockchain - Side Of Project
 
-Token Adr : 0xdeaeC141fDA47eA147910C6dF036BaC530c2F247
 
 The blockchain side of the application was made using Solidity programming language on Sepolia network.
 
@@ -47,4 +44,4 @@ The programming languages and tools used are as shown below :
 - ganache
 - npm
 
-Please [click](https://github.com/ihsan215/smart-staking-wallet-dapp/tree/main/smart_contracts) to review.
+Please [click](https://github.com/Tymursabrove/staking-wallet-dapp-smart/tree/main/smart_contracts) to review.
